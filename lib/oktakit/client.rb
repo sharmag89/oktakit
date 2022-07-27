@@ -79,7 +79,7 @@ module Oktakit
       if status == 200 && should_paginate
         all_objs = [resp]
         while next_page
-          resp, status, next_page = request(:get, next_page, **request_options)
+          resp, status, next_page = request(:get, "/"+next_page, **request_options)
           break unless status == 200 # Return early if page request fails
 
           all_objs << resp
