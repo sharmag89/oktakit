@@ -80,7 +80,7 @@ module Oktakit
         all_objs = [resp]
         while next_page
           print "Next Page URL : #{next_page.inspect}"
-          resp, status, next_page = request(:get, next_page, **request_options)
+          resp, status, next_page = request(:get, "/"+next_page, **request_options)
           break unless status == 200 # Return early if page request fails
 
           all_objs << resp
