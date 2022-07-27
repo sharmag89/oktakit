@@ -74,11 +74,12 @@ module Oktakit
       }
 
       resp, status, next_page = request(:get, url, **request_options)
-
+      print "Target URL : #{url.inspect}"
       # If request succeeded and we should paginate, then automatically traverse all next_pages
       if status == 200 && should_paginate
         all_objs = [resp]
         while next_page
+          print "Next Page URL : #{next_page.inspect}"
           resp, status, next_page = request(:get, next_page, **request_options)
           break unless status == 200 # Return early if page request fails
 
@@ -177,6 +178,7 @@ module Oktakit
       options[:headers][:content_type] = content_type if content_type
 
       uri = URI::DEFAULT_PARSER.escape("/api/v1" + path.to_s)
+      print "Hitting URL : #{uri.inspect}"
       @last_response = resp = sawyer_agent.call(method, uri, data, options)
 
       response = [resp.data, resp.status]
